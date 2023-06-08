@@ -6,38 +6,42 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/tbats-{{ version }}.tar.gz
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: dccd0d4cd9e2fde30bf19a944ee957d2f865975846284f48ce673992c4f5d89e
 
 build:
-  noarch: python
-  script: {{ PYTHON }} -m pip install . -vv
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
 
 requirements:
   host:
     - pip
-    - pytest
-    - python >=3.6
+    - python
+    - setuptools
+    - wheel
   run:
+    - python
     - numpy
     - pmdarima
-    - python >=3.6
     - scikit-learn
     - scipy
 
 test:
   imports:
     - tbats
-  commands:
-    - pip check
   requires:
     - pip
+  commands:
+    - pip check
 
 about:
   home: https://github.com/intive-DataScience/tbats
+  dev_url: https://github.com/intive-DataScience/tbats
+  doc_url: https://github.com/intive-DataScience/tbats
   summary: BATS and TBATS for time series forecasting
+  description: BATS and TBATS for time series forecasting
   license: MIT
+  license_family: MIT
   license_file: LICENSE
 
 extra:
